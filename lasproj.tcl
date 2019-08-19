@@ -79,6 +79,7 @@ proc main {} {
             set inv on
             set argv [lrange $argv 1 end]
         } else {
+            puts "\nno option $opt!\n"
             usage
         }
     }
@@ -182,11 +183,11 @@ proc main {} {
         set dirn fwd
     }
 
-    puts $S
+    puts "\n$S\n"
 
     if {[info exists output]} {
         set command "las $dirn $P $input $output"
-        puts $command
+        puts "$command"
         eval $command
     } else {
         foreach infile $files {
