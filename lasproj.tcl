@@ -187,7 +187,7 @@ proc main {} {
 
     if {[info exists output]} {
         set command "las $dirn $P $input $output"
-        puts "$command"
+        puts $command
         eval $command
     } else {
         foreach infile $files {
