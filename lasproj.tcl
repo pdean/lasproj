@@ -47,10 +47,10 @@ proc main {} {
             set suffix  [lindex $argv 1]
             set argv [lrange $argv 2 end]
         } elseif {[string equal $opt "-olas"]} {
-            set otype las
+            set otype .las
             set argv [lrange $argv 1 end]
         } elseif {[string equal $opt "-olaz"]} {
-            set otype laz
+            set otype .laz
             set argv [lrange $argv 1 end]
         } elseif {[string equal $opt "-proj"]} {
 	    if {[llength $argv] < 2} usage
@@ -184,9 +184,21 @@ proc main {} {
 
     puts $S
 
-
-
-
+    if {[info exists output]} {
+        set command "las $dirn $P $input $output"
+        puts $command
+        eval $command
+    } else {
+        foreach infile $files {
+            if {![info exists otype]} {
+                set otype [file ext $infile]
+            }
+            set outfile [file join $odir "[file root $infile]$suffix$otype"]
+            set command "las $dirn $P $infile $outfile"
+            puts $command
+            eval $command
+        }
+    }
 }
 
 main
